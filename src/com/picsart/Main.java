@@ -6,7 +6,7 @@ import com.picsart.service.ShowTimer;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Timer timer = new Timer();
 
         Scanner scanner = new Scanner(System.in);
@@ -20,8 +20,17 @@ public class Main {
             timer.setSecond(Integer.parseInt(time.substring(6)));
         }
 
-        Thread thread = new Thread(() -> ShowTimer.showTime(timer));
+        start(timer);
+
+    }
+
+    private static void start(Timer timer){
+        Thread thread = new Thread(new ShowTimer(timer));
         thread.start();
-        thread.join();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

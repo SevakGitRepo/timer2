@@ -2,7 +2,12 @@ package com.picsart.service;
 
 import com.picsart.model.Timer;
 
-public class ShowTimer {
+public class ShowTimer implements Runnable {
+    private Timer timer;
+
+    public ShowTimer(Timer timer) {
+        this.timer = timer;
+    }
 
     private static void print(int hour, int minute, int second) {
 
@@ -25,7 +30,8 @@ public class ShowTimer {
         System.out.println(stringBuilder.toString());
     }
 
-    public static void showTime(Timer timer) {
+    @Override
+    public void run() {
         int hour = timer.getHour();
         int minute = timer.getMinute();
         int second = timer.getSecond();
